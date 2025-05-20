@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Sum</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js" defer></script>
+</head>
+<body>
+    <div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh;" x-data="binarySum()">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1 style="font-size: 3rem;">Binary Sum</h1>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-5">
+                <input type="text" class="form-control form-control-lg" placeholder="Binary Number 1" x-model="number1" @input="number1 = $event.target.value.replace(/[^01]/g, '')" style="font-size: 1.5rem;">
+                <p class="text-danger" x-show="number1 !== '' && !/^[01]+$/.test(number1)" style="font-size: 1.2rem;">Invalid binary number.</p>
+            </div>
+            <div class="col-md-2 d-flex align-items-center justify-content-center" style="font-size: 2rem;">
+                +
+            </div>
+            <div class="col-md-5">
+                <input type="text" class="form-control form-control-lg" placeholder="Binary Number 2" x-model="number2" @input="number2 = $event.target.value.replace(/[^01]/g, '')" style="font-size: 1.5rem;">
+                <p class="text-danger" x-show="number2 !== '' && !/^[01]+$/.test(number2)" style="font-size: 1.2rem;">Invalid binary number.</p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary btn-lg" @click="sum()" style="font-size: 1.5rem;">Binary Sum</button>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <h2 style="font-size: 2rem;">Result: <span x-text="result" style="font-size: 1.5rem;"></span></h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * @description Inicializa o componente Alpine.js 'binarySum' para realizar a soma de dois números binários.
+         * Este componente gerencia a entrada dos números binários, valida a entrada,
+         * realiza a soma binária e exibe o resultado.
+         */
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('binarySum', () => ({
+                /**
+                 * @property {string} number1 - O primeiro número binário (string). Valor padrão é '10001001'.
+                 */
+                number1: '10001001',
+                /**
+                 * @property {string} number2 - O segundo número binário (string). Valor padrão é '01001000'.
+                 */
+                number2: '01001000',
+                /**
+                 * @property {string} result - O resultado da soma binária (string). Inicialmente vazio.
+                 */
+                result: '',
+                /**
+                 * @function sum
+                 * @description Realiza a soma binária de number1 e number2.
+                 * Converte os números binários em arrays de bits, inverte os arrays,
+                 * soma os bits com carry (overflow) e atualiza a propriedade 'result' com o resultado formatado.
+                 */
+                sum() {
+                    this.number1 = this.formatBinary(this.number1);
+                    this.number2 = this.formatBinary(this.number2);
+                
+                    const bits1 = this.number1.split('').map(Number).reverse();
+                    const bits2 = this.number2.split('').map(Number).reverse();
+                
+                    let carry = 0;
+                    let resultBits = [];
+                
+                    for (let i = 0; i < bits1.length; i++) {
+                        const sum = bits1[i] + bits2[i] + carry;
+                        
+                        switch (sum) {
+                            case 0:
+                                resultBits.unshift(0);
+                                break;
+                            case 1:
+                                resultBits.unshift(1);
+                                carry = 0;
+                                break;
+                            case 2:
+                                resultBits.unshift(0);
+                                carry = 1;
+                                break;
+                        }
+                    }
+                
+                    this.result = resultBits.join('');
+                },
+                
+                /**
+                 * @function formatBinary
+                 * @description Garante que o número binário tenha 8 bits, preenchendo com zeros à esquerda se necessário.
+                 * @param {string} binary - O número binário a ser formatado.
+                 * @returns {string} - O número binário formatado com 8 bits.
+                 */
+                formatBinary(binary) {
+                    return binary.padStart(8, '0');
+                }
+            }))
+        })
+    </script>
+
+    <!-- Bootstrap 5 JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
