@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js" defer></script>
 </head>
 <body>
-    <div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh;" x-data="binarySum()">
+    <div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: calc(100vh - 100px);" x-data="binarySum()">
         <p class="text-center" style="font-size: 1.2rem;">
             A soma binária funciona de forma similar à soma decimal, mas com apenas dois dígitos: 0 e 1.
             Quando a soma de dois bits resulta em 2, "vai 1" para a próxima coluna.
@@ -117,5 +117,12 @@
 
     <!-- Bootstrap 5 JS (optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <footer class="bg-light text-center py-3 position-fixed bottom-0 start-0 end-0">
+        <div class="my-2">
+            <img src="https://logodownload.org/wp-content/uploads/2014/10/senac-logo-2.png" alt="Senac Logo" height="50">
+        </div>
+        <p>Este é um projeto simples de soma de número binário da faculdade Senac ADS.</p>
+    </footer>
 </body>
 </html>
