@@ -11,9 +11,13 @@
 </head>
 <body>
     <div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh;" x-data="binarySum()">
+        <p class="text-center" style="font-size: 1.2rem;">
+            A soma binária funciona de forma similar à soma decimal, mas com apenas dois dígitos: 0 e 1.
+            Quando a soma de dois bits resulta em 2, "vai 1" para a próxima coluna.
+        </p>
         <div class="row">
             <div class="col-md-12 text-center">
-                <h1 style="font-size: 3rem;">Binary Sum</h1>
+                <h1 style="font-size: 3rem;">Soma Binária</h1>
             </div>
         </div>
         <div class="row mt-4">
@@ -31,12 +35,12 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-12 text-center">
-                <button class="btn btn-primary btn-lg" @click="sum()" style="font-size: 1.5rem;">Binary Sum</button>
+                <button class="btn btn-primary btn-lg" @click="sum()" style="font-size: 1.5rem;">Somar Binário</button>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-md-12 text-center">
-                <h2 style="font-size: 2rem;">Result: <span x-text="result" style="font-size: 1.5rem;"></span></h2>
+                <h2 style="font-size: 2rem;">Resultado: <span x-text="result" style="font-size: 1.5rem;"></span></h2>
             </div>
         </div>
     </div>
